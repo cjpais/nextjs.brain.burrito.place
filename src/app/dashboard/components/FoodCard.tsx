@@ -1,5 +1,5 @@
 import Card from "@/components/Card";
-import { Burrito } from "@burrito-place/api";
+import { Burrito, BurritoTransformResponse } from "@burrito-place/api";
 import dayjs from "dayjs";
 import React from "react";
 import { FoodStatus } from "./FoodStatus";
@@ -35,15 +35,24 @@ type FoodData = {
 };
 
 const fetchFood = async () => {
-  const last7DaysQuery = await burrito.queryData<{ hash: string }[]>({
-    query:
-      "get me the 7 days of hashes up to the end of yesterday. including today. make sure to include full days",
-    schema: [{ hash: "string. the hash of the data" }],
-  });
+  const last7DaysQuery = await burrito.queryData<{ hash: string }[]>(
+    {
+      query:
+        "get me the 7 days of hashes up to the end of yesterday. make sure to include full days",
+      schema: [{ hash: "string. the hash of the data" }],
+    }
+    // {
+    //   next: {
+    //     revalidate: 10,
+    //   },
+    // }
+  );
 
   const last7DaysHashes = last7DaysQuery.map((d) => d.hash);
 
-  const foodTransform = await burrito.transform({
+  console.log(last7DaysHashes);
+
+  const foodTransform = (await burrito.transform({
     hashes: last7DaysHashes,
     prompt: `does this entry relate to meals a person ate?
         
@@ -57,7 +66,9 @@ const fetchFood = async () => {
         `,
     systemPrompt:
       "you are a helpful assistant. a person is going to ask you a question about some data. respond to their question using the data. respond only in JSON.",
-  });
+  })) as BurritoTransformResponse;
+
+  console.log(foodTransform);
 
   const filteredFoodTransform = foodTransform.filter(
     (t) => t.completion?.mealRelated
@@ -81,7 +92,7 @@ const fetchFood = async () => {
 
   const meals = await Promise.all(
     Object.entries(groupedByDate).map(async ([date, meals]) => {
-      const mealTransform = await burrito.transform({
+      const mealTransform = await burrito.transform<Meal>({
         prompt: `what was eaten for breakfast, lunch, and dinner? 
     
             Do your best to infer from the data
@@ -119,7 +130,7 @@ const fetchFood = async () => {
 
       return {
         date,
-        meals: mealTransform,
+        meals: mealTransform as Meal,
       };
     })
   );
@@ -139,37 +150,42 @@ const fetchFood = async () => {
 
 const FoodCard = async () => {
   const food = await fetchFood();
-  console.log(food);
+  console.log(JSON.stringify(food, null, 2));
 
   const mealCounts = food.reduce(
     (acc, current) => {
       Object.values(current.meals).forEach((meal) => {
-        if (meal.status === "home") {
-          acc.homeMeals += 1;
+        if (meal.friends.length > 0) {
+          acc.friends += 1;
+          acc.total += 1;
+        } else if (meal.status === "home") {
+          acc.home += 1;
+          acc.total += 1;
         } else if (meal.status === "out") {
-          acc.outMeals += 1;
+          acc.out += 1;
+          acc.total += 1;
         } else {
-          acc.skippedMeals += 1;
+          acc.skipped += 1;
         }
       });
       return acc;
     },
-    { homeMeals: 0, outMeals: 0, skippedMeals: 0 }
+    { home: 0, out: 0, skipped: 0, friends: 0, total: 0 }
   );
-
-  const totalMeals = mealCounts.homeMeals + mealCounts.outMeals;
-
-  console.log("total meals", mealCounts.homeMeals + mealCounts.outMeals);
 
   return (
     <Card>
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between">
-          <h1 className="text-xl font-bold">Food Tracker</h1>
-          <h2 className="text-lg font-bold">
-            {((mealCounts.homeMeals / totalMeals) * 100).toFixed()}%
-          </h2>
-          {/* <div className="flex flex-col text-xs text-end">
+        {/* <div> */}
+        {/* <div className="flex justify-between"> */}
+        {/* <h2 className="text-lg font-bold">
+              {(
+                ((mealCounts.home + mealCounts.friends) / mealCounts.total) *
+                100
+              ).toFixed()}
+              %
+            </h2> */}
+        {/* <div className="flex flex-col text-xs text-end">
             <div className="flex justify-between w-14">
               <p>home:</p>
               <p>{mealCounts.homeMeals}</p>
@@ -179,8 +195,17 @@ const FoodCard = async () => {
               <p>{mealCounts.outMeals}</p>
             </div>
           </div> */}
-        </div>
+        {/* </div> */}
+        {/* </div> */}
         <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl font-bold b">Food Tracker</h1>
+            <div className="flex gap-9 justify-end font-bold">
+              <p>🍳</p>
+              <p>🥪</p>
+              <p>🍽️</p>
+            </div>
+          </div>
           <div className="bg-[#86198F18] w-full h-[2px] rounded-full"></div>
           {food.map((f, i) => (
             <React.Fragment key={i}>
@@ -189,6 +214,54 @@ const FoodCard = async () => {
             </React.Fragment>
           ))}
         </div>
+        {/* <div className="flex flex-col gap-2"> */}
+        {/* <div className="flex text-xs justify-between"> */}
+        <div className="grid grid-cols-12 text-xs items-center w-full">
+          <h2 className="font-bold col-span-2">meals</h2>
+          <div className="col-span-10 grid grid-cols-4 justify-items-center">
+            <p className="text-fuchsia-800 font-bold">w/ friends</p>
+            <p className="text-green-800 font-bold">@ home</p>
+            <p className="text-blue-800 font-bold">eaten out</p>
+            <p className="text-neutral-500 font-bold">skipped</p>
+          </div>
+
+          <h2 className="col-span-2 font-bold">count</h2>
+          <div className="col-span-10 grid grid-cols-4 justify-items-center">
+            <p className="text-fuchsia-800">{mealCounts.friends}</p>
+            <p className="text-green-800">{mealCounts.home}</p>
+            <p className="text-blue-800">{mealCounts.out}</p>
+            <p className="text-neutral-500">{mealCounts.skipped}</p>
+          </div>
+
+          <h2 className="col-span-2 font-bold">perc</h2>
+          <div className="col-span-10 grid grid-cols-4 justify-items-center">
+            <p className="text-fuchsia-800">
+              {((mealCounts.friends / mealCounts.total) * 100).toFixed()}%
+            </p>
+            <p className="text-green-800">
+              {((mealCounts.home / mealCounts.total) * 100).toFixed()}%
+            </p>
+            <p className="text-blue-800">
+              {((mealCounts.out / mealCounts.total) * 100).toFixed()}%
+            </p>
+            <p className="text-neutral-500">
+              {/* {((mealCounts.skipped / mealCounts.total) * 100).toFixed()}% */}
+              -
+            </p>
+          </div>
+        </div>
+        {/* <div className="grid grid-cols-5 text-xs items-center w-full"> */}
+        {/* <h2>
+          @ home percent:{" "}
+          {(
+            ((mealCounts.home + mealCounts.friends) / mealCounts.total) *
+            100
+          ).toFixed()}
+          %
+        </h2> */}
+        {/* </div> */}
+        {/* </div> */}
+        {/* </div> */}
       </div>
     </Card>
   );
@@ -214,16 +287,25 @@ const FoodRow = ({ data }: { data: FoodData }) => {
     data.meals.dinner.friends.length > 0 ? "friends" : data.meals.dinner.status;
 
   return (
-    <div className="flex gap-8 items-center">
-      <div className="flex flex-col w-16 gap-0">
-        <p className="font-bold text-lg">{day}</p>
-        <p className="text-xs">
-          {month} {dayOfMonth}
-        </p>
+    <div className="flex gap-8 items-center ">
+      <div className="flex gap-3 items-center">
+        <div className="flex flex-col w-16 gap-0">
+          <p className="font-bold text-lg">{day}</p>
+          <p className="text-xs">
+            {month} {dayOfMonth}
+          </p>
+        </div>
+        <div className="flex flex-col text-xs w-full font-mono text-[.5rem]">
+          <p className="line-clamp-1">b: {data.meals.breakfast.food}</p>
+          <p className="line-clamp-1">l: {data.meals.lunch.food}</p>
+          <p className="line-clamp-1">d: {data.meals.dinner.food}</p>
+        </div>
       </div>
-      <FoodStatus meal={data.meals.breakfast} />
-      <FoodStatus meal={data.meals.lunch} />
-      <FoodStatus meal={data.meals.dinner} />
+      <div className="flex gap-8">
+        <FoodStatus meal={data.meals.breakfast} />
+        <FoodStatus meal={data.meals.lunch} />
+        <FoodStatus meal={data.meals.dinner} />
+      </div>
     </div>
   );
 };

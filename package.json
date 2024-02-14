@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@burrito-place/api": "^0.0.1",
+    "@burrito-place/api": "^0.0.5",
     "ai": "^2.2.33",
     "dayjs": "^1.11.10",
     "next": "14.0.4",

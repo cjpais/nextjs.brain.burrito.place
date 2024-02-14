@@ -12,7 +12,7 @@ export const FoodStatus = ({ meal }: { meal: MealDetail }) => {
       case "home":
         return <div className="h-6 w-6 bg-green-800 rounded-full" />;
       case "out":
-        return <div className="h-6 w-6 bg-red-800 rounded-full" />;
+        return <div className="h-6 w-6 bg-blue-800 rounded-full" />;
       case "none":
         return (
           <div className="h-6 w-6 bg-transparent border-2 border-neutral-300 rounded-full" />
