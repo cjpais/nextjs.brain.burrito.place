@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Logo from "@/components/Logo";
+import LoginButton from "@/components/LoginButton";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,20 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-          <div className="flex flex-col gap-8 z-10 max-w-2xl w-full items-center justify-between font-mono text-sm lg:flex">
-            <a
-              href="/"
-              className="text-2xl text-neutral-200 font-bold flex gap-6"
-            >
-              {/* <Logo color="#fcf" className="w-8 h-8" /> */}
-              cj's brain
-              {/* <Logo color="#fcf" className="w-8 h-8" /> */}
-            </a>
-            {children}
-          </div>
+    <html lang="en" className="bg-fuchsia-100">
+      <body className="">
+        <main className="flex flex-col items-center text-neutral-950 font-mono">
+          <Header />
+          {children}
         </main>
       </body>
     </html>

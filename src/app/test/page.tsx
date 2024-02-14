@@ -25,8 +25,6 @@ const People = async () => {
 
   const data = await fetcher2<any>(question, responseSchema);
 
-  console.log(data);
-
   return (
     <div className="flex flex-col min-w-96 gap-4">
       <div className="font-mono">
