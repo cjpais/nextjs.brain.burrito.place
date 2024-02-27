@@ -6,7 +6,7 @@ const Search = () => {
   const router = useRouter();
   const [search, setSearch] = React.useState("");
   const [isFocused, setIsFocused] = React.useState(false);
-  const [mode, setMode] = React.useState<"keyword" | "data">("keyword");
+  const [mode, setMode] = React.useState<"keyword" | "data">("data");
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
