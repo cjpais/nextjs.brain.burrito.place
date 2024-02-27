@@ -46,13 +46,10 @@ fill in the following json if so. otherwise null. respond only in json
 \`\`\``,
     systemPrompt:
       "you are a helpful assistant. a person is going to ask you a question about some data. the userData field is especially salient. respond to their question using the data. respond only in JSON.",
-    //   model: default model is mixtral with 32k context
-    // caches the result from this call for this hash (key is ignored for now)
     save: {
       app: "outside",
       key: "outside",
     },
-    // force: true or false, you can force fetch if you want, bypassing cache entirely.
   });
 
   return outdoorsTransform
