@@ -17,7 +17,7 @@ const Filters = () => {
         //   <label htmlFor={type}>{type}</label>
         // </div>
       ))}
-      THESE ARE LENSES (PROVIDE youR OWN LENSES)
+      {/* THESE ARE LENSES (PROVIDE youR OWN LENSES) */}
     </div>
   );
 };

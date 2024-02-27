@@ -25,12 +25,14 @@ export const transformEntree = async ({
   hashes,
   password,
   model = "gpt3.5",
+  mode = "each",
 }: {
   systemPrompt?: string;
   prompt: string;
   hashes: string[];
   password: string;
   model?: string;
+  mode?: "each" | "all";
 }) => {
   console.log("transforming", prompt, systemPrompt, hashes, password, model);
   const result = await fetch(`${process.env.NEXT_PUBLIC_BRAIN_URL}/transform`, {
@@ -46,6 +48,7 @@ export const transformEntree = async ({
       stream: false,
       // model: "t3.5",
       model,
+      mode,
     }),
     cache: "no-cache",
   })

@@ -54,6 +54,8 @@ export async function fetcher<T>(query: string, schema?: string): Promise<T> {
     },
   }).then((res) => res.json());
 
+  // console.log("res", res);
+
   return res as T;
 }
 
@@ -83,23 +85,26 @@ const Home = async ({
 }) => {
   let query = "Get me the latest 10 posts, sort by date";
 
+  // if (search)
   if (searchParams?.type) {
     query = `Get me the latest 10 posts of type ${searchParams.type}, sort by date`;
   }
 
-  const posts = searchParams?.query
-    ? await fetchSimilar(searchParams.query)
+  if (searchParams?.data) {
+    query = searchParams.data as string;
+  }
+
+  const posts = searchParams?.keyword
+    ? await fetchSimilar(searchParams?.keyword as string)
     : await fetcher<Post[]>(query);
 
-  // const transformations =
-
   return (
-    <div className="flex flex-col gap-8  w-full items-center font-mono text-sm lg:flex lg:px-24 px-8 py-8">
+    <div className="flex flex-col gap-8 w-full items-center font-mono text-sm lg:flex lg:px-24 px-8 py-8">
       <div className="max-w-3xl flex flex-col w-full items-center gap-4">
         <Filters />
         <Search />
       </div>
-      <div className="grid grid-cols-2 w-3/4 max-w-6xl gap-8">
+      <div className="grid grid-cols-2 max-w-6xl gap-8">
         {posts.map((post, i) => (
           <React.Fragment key={i}>
             <Entree key={`entree-${i}`} post={post} includeDelete={true} />

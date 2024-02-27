@@ -30,7 +30,12 @@ export const FoodStatus = ({ meal }: { meal: MealDetail }) => {
     <div className="relative flex justify-center items-center cursor-pointer group">
       {getComponent()}
       <div className="absolute bottom-full mb-2 hidden w-48 p-4 bg-fuchsia-950 text-white text-sm rounded-lg shadow-lg group-hover:block text-xs">
-        {`Ate: ${meal.food}`}
+        <div className="flex flex-col">
+          <p>{`Ate: ${meal.food}`}</p>
+          {meal.friends.length > 0 && (
+            <p>{`With: ${meal.friends.join(", ")}`}</p>
+          )}
+        </div>
       </div>
     </div>
   );

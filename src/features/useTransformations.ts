@@ -8,8 +8,10 @@ interface TransformationState {
   prompt: string;
   systemPrompt: string;
   model: string;
+  mode: "each" | "all";
   transformations: Transformation[];
   setPrompt: (p: string) => void;
+  setMode: (m: "each" | "all") => void;
   setSystemPrompt: (p: string) => void;
   setModel: (m: string) => void;
   getTransformation: (hash: string) => Transformation | undefined;
@@ -25,7 +27,9 @@ export const useTransformations = create<TransformationState>()((set, get) => {
     systemPrompt:
       "you are a helpful assistant. a person is going to ask you a question about some data. respond to their question using the data. respond only in JSON.",
     transformations: [],
+    mode: "each",
     setPrompt: (p) => set({ prompt: p }),
+    setMode: (m) => set({ mode: m }),
     setSystemPrompt: (p) => set({ systemPrompt: p }),
     setModel: (m) => set({ model: m }),
     getTransformation: (hash) =>

@@ -21,6 +21,8 @@ const Transform = ({ hashes }: { hashes: string[] }) => {
     prompt,
     model,
     systemPrompt,
+    mode,
+    setMode,
     setSystemPrompt,
     setModel,
     setPrompt,
@@ -47,6 +49,7 @@ const Transform = ({ hashes }: { hashes: string[] }) => {
       hashes,
       model,
       password: password!,
+      mode,
     });
     if (!result) return;
     setTransformations(result);
@@ -60,6 +63,7 @@ const Transform = ({ hashes }: { hashes: string[] }) => {
         prompt,
         systemPrompt,
         model,
+        mode,
       },
       transformations,
     };
@@ -111,6 +115,15 @@ const Transform = ({ hashes }: { hashes: string[] }) => {
                 {option.label}
               </option>
             ))}
+          </select>
+          <b>mode</b>
+          <select
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
+            className="p-2 rounded-lg border-2 border-fuchsia-700 text-fuchsia-700 bg-transparent hover:bg-fuchsia-200 transition-colors duration-100 ease-in-out outline-none"
+          >
+            <option value="each">each</option>
+            <option value="all">all</option>
           </select>
         </div>
         <div className="grid grid-cols-3 gap-4">

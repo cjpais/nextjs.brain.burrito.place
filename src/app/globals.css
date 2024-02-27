@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+.chat-message {
+  position: relative;
+}
+
+.chat-message::before {
+  content: '';
+  position: absolute;
+  top: 100%; /* Position it at the bottom of the chat message */
+  right: 20px;
+  border-style: solid;
+  border-left: 5px solid transparent; /* Size of the triangle */
+  border-right: 5px solid transparent; /* Size of the triangle */
+  border-top: 8px solid #FFD700; /* Color and size of the triangle */
+}
+
+.user-chat-message {
+  position: relative;
+}
+
+.user-chat-message::before {
+  content: '';
+  position: absolute;
+  top: 100%; /* Position it at the bottom of the chat message */
+  left: 20px;
+  border-style: solid;
+  border-left: 5px solid transparent; /* Size of the triangle */
+  border-right: 5px solid transparent; /* Size of the triangle */
+  border-top: 8px solid #FFF; /* Color and size of the triangle */
+}
 /* :root {
   --foreground-rgb: 250, 232, 255;
   --background-start-rgb: 250, 232, 255;

@@ -8,7 +8,7 @@ const EntreeTransformation = ({ hash }: { hash: string }) => {
 
   return (
     <div>
-      <h1>Transformation</h1>
+      {/* <h1>Transformation</h1> */}
       <pre className="max-w-[420px] whitespace-pre-wrap">
         {JSON.stringify(transformation, null, 2)}
       </pre>
