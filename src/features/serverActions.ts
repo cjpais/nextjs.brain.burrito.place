@@ -1,5 +1,6 @@
 "use server";
 
+import { Operation } from "fast-json-patch";
 import { revalidatePath } from "next/cache";
 
 export const deleteEntree = async (hash: string, password: string) => {
@@ -16,6 +17,32 @@ export const deleteEntree = async (hash: string, password: string) => {
     .then((r) => r.ok)
     .catch(() => false);
   revalidatePath("/");
+  return result;
+};
+
+export const editEntree = async ({
+  hash,
+  patches,
+  password,
+}: {
+  hash: string;
+  patches: Operation[];
+  password: string;
+}) => {
+  const result = await fetch(`${process.env.NEXT_PUBLIC_BRAIN_URL}/edit`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${password}`,
+    },
+    body: JSON.stringify({
+      hash,
+      patches,
+    }),
+  }).then((r) => r.ok);
+
+  console.log("edit result", result);
+
   return result;
 };
 
