@@ -16,11 +16,9 @@ const Page = () => {
       <div className="flex flex-col gap-8  max-w-[400px] w-full">
         <MeditationCard />
         <OutsideCard />
-        <LatestImagesCard />
+        {/* <LatestImagesCard /> */}
       </div>
-      <div className="max-w-[400px]">
-        <GardenCard />
-      </div>
+      <div className="max-w-[400px]">{/* <GardenCard /> */}</div>
       <TanakiChat />
     </div>
   );

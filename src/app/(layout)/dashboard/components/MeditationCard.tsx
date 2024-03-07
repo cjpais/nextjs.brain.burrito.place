@@ -75,6 +75,14 @@ fill in the following json if so. otherwise null
 };
 
 const MeditationCard = async () => {
+  return (
+    <Card>
+      <MeditationContent />
+    </Card>
+  );
+};
+
+export const MeditationContent = async () => {
   const meditations = await getMeditations();
 
   const totalDuration = meditations.reduce(
@@ -96,54 +104,26 @@ const MeditationCard = async () => {
       : `${daysSinceLastMeditation} days ago`;
 
   return (
-    // <Card>
-    //   <div className="flex items-center justify-between">
-    //     <div className="flex gap-4 items-center">
-    //       <h1 className="text-xl font-bold">🧘🏾</h1>
-    //       <div className="">
-    //         <h1 className="text-xl font-bold">Meditated</h1>
-    //         <p className="font-bold text-xs">last: {daysAgoString}</p>
-    //       </div>
-    //     </div>
-    //     <Separator type="vertical" />
-    //     <div className="flex flex-col items-center">
-    //       {/* <div className="italic text-[.65rem]">in the last 7 days</div> */}
-    //       <div className="flex gap-1 items-center">
-    //         <h1 className="font-bold text-xl">{meditations.length}</h1>
-    //         <p>of the last</p>
-    //         <h1 className="font-bold text-xl">7</h1>
-    //         <p>days</p>
-    //       </div>
-    //       <div className="flex gap-1 text-xs">
-    //         <p>for a total of:</p>
-    //         <p className="font-bold">{totalDuration}</p>
-    //         <p>min</p>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </Card>
-    <Card>
-      <div className="flex flex-col items-center gap-6">
-        <h1 className="text-4xl font-bold">🧘🏾</h1>
+    <div className="flex flex-col items-center gap-6">
+      <h1 className="text-4xl font-bold">🧘🏾</h1>
 
-        <div className="flex gap-2">
-          {last7Days.map((day, i) => {
-            const meditation = meditations.find((m) => m.date === day);
-            return (
-              <div
-                key={i}
-                className={`flex flex-col items-center ${
-                  meditation ? "text-fuchsia-700" : "text-neutral-500"
-                }`}
-              >
-                <p className="text-xl font-bold">{dayjs(day).format("dd")}</p>
-                {/* <p>{meditation ? "🧘🏾" : "❌"}</p> */}
-              </div>
-            );
-          })}
-        </div>
+      <div className="flex gap-2">
+        {last7Days.map((day, i) => {
+          const meditation = meditations.find((m) => m.date === day);
+          return (
+            <div
+              key={i}
+              className={`flex flex-col items-center ${
+                meditation ? "text-fuchsia-700" : "text-neutral-500"
+              }`}
+            >
+              <p className="text-xl font-bold">{dayjs(day).format("dd")}</p>
+              {/* <p>{meditation ? "🧘🏾" : "❌"}</p> */}
+            </div>
+          );
+        })}
       </div>
-    </Card>
+    </div>
   );
 };
 

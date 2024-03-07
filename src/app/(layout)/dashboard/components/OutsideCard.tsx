@@ -95,6 +95,14 @@ const getOutsideTime = async () => {
 };
 
 const OutsideCard = async () => {
+  return (
+    <Card>
+      <OutsideContent />
+    </Card>
+  );
+};
+
+export const OutsideContent = async () => {
   const outsideTimes = await getOutsideTime();
 
   const last7Days = Array.from({ length: 7 }, (_, i) =>
@@ -102,28 +110,26 @@ const OutsideCard = async () => {
   ).reverse();
 
   return (
-    <Card>
-      <div className="flex flex-col items-center gap-6">
-        <h1 className="text-4xl font-bold">🌳</h1>
+    <div className="flex flex-col items-center gap-6">
+      <h1 className="text-4xl font-bold">🌳</h1>
 
-        <div className="flex gap-2">
-          {last7Days.map((day, i) => {
-            const outside = outsideTimes.find((m) => m.date === day);
-            return (
-              <div
-                key={i}
-                className={`flex flex-col items-center ${
-                  outside ? "text-fuchsia-700" : "text-neutral-500"
-                }`}
-              >
-                <p className="text-xl font-bold">{dayjs(day).format("dd")}</p>
-                {/* <p>{outside?.activity}</p> */}
-              </div>
-            );
-          })}
-        </div>
+      <div className="flex gap-2">
+        {last7Days.map((day, i) => {
+          const outside = outsideTimes.find((m) => m.date === day);
+          return (
+            <div
+              key={i}
+              className={`flex flex-col items-center ${
+                outside ? "text-fuchsia-700" : "text-neutral-500"
+              }`}
+            >
+              <p className="text-xl font-bold">{dayjs(day).format("dd")}</p>
+              {/* <p>{outside?.activity}</p> */}
+            </div>
+          );
+        })}
       </div>
-    </Card>
+    </div>
   );
 };
 

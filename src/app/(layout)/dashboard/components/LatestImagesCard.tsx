@@ -50,17 +50,23 @@ const getLatestImage = async () => {
 };
 
 const LatestImagesCard = async () => {
+  return (
+    <Card>
+      <LatestImagesContent />
+    </Card>
+  );
+};
+
+export const LatestImagesContent = async () => {
   const images = await getLatestImage();
 
   return (
-    <Card>
-      <div className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">Friends Photos</h2>
-        <Separator type="horizontal" />
-        <Slideshow photos={images} />
-        {/*  */}
-      </div>
-    </Card>
+    <div className="flex flex-col gap-4">
+      <h2 className="font-bold text-xl">Friends Photos</h2>
+      <Separator type="horizontal" />
+      <Slideshow photos={images} />
+      {/*  */}
+    </div>
   );
 };
 

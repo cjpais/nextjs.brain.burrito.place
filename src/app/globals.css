@@ -1,56 +1,87 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ 
+:root {
+  --fuchsia-50: #fdf4ff;
+  --fuchsia-100: #fae8ff;
+  --fuchsia-200: #f5d0fe;
+  --fuchsia-300: #f0abfc;
+  --fuchsia-400: #e879f9;
+  --fuchsia-500: #d946ef;
+  --fuchsia-600: #c026d3;
+  --fuchsia-700: #a21caf;
+  --fuchsia-800: #86198f;
+  --fuchsia-900: #701a75;
 
-.chat-message {
-  position: relative;
+  --background: var(--fuchsia-50); 
+  --foreground: var(--fuchsia-900);
+
+  --card: var(--fuchsia-50);
+  --card-foreground: var(--fuchsia-900);
+
+  --popover: var(--fuchsia-50);
+  --popover-foreground: var(--fuchsia-900);
+
+  --primary: var(--fuchsia-600);
+  --primary-foreground: #ffffff; /* White */
+
+  --secondary: var(--fuchsia-200);
+  --secondary-foreground: var(--fuchsia-900);
+
+  --muted: var(--fuchsia-200);
+  --muted-foreground: var(--fuchsia-700);
+
+  --accent: var(--fuchsia-100);
+  --accent-foreground: var(--fuchsia-900);
+
+  --destructive: var(--fuchsia-600);
+  --destructive-foreground: #ffffff; /* White */
+
+  --border: var(--fuchsia-800);
+  --input: var(--fuchsia-700);
+  --ring: var(--fuchsia-900);
+
+  --radius: 0.5rem;
 }
 
-.chat-message::before {
-  content: '';
-  position: absolute;
-  top: 100%; /* Position it at the bottom of the chat message */
-  right: 20px;
-  border-style: solid;
-  border-left: 5px solid transparent; /* Size of the triangle */
-  border-right: 5px solid transparent; /* Size of the triangle */
-  border-top: 8px solid #FFD700; /* Color and size of the triangle */
+.dark {
+  --background: var(--fuchsia-900);
+  --foreground: #ffffff; /* White */
+
+  --card: var(--fuchsia-900);
+  --card-foreground: #ffffff; /* White */
+
+  --popover: var(--fuchsia-900);
+  --popover-foreground: #ffffff; /* White */
+
+  --primary: #ffffff; /* White */
+  --primary-foreground: var(--fuchsia-600);
+
+  --secondary: var(--fuchsia-800);
+  --secondary-foreground: #ffffff; /* White */
+
+  --muted: var(--fuchsia-800);
+  --muted-foreground: var(--fuchsia-700);
+
+  --accent: var(--fuchsia-800);
+  --accent-foreground: #ffffff; /* White */
+
+  --destructive: var(--fuchsia-600);
+  --destructive-foreground: #ffffff; /* White */
+
+  --border: var(--fuchsia-800);
+  --input: var(--fuchsia-800);
+  --ring: var(--fuchsia-200);
 }
 
-.user-chat-message {
-  position: relative;
-}
 
-.user-chat-message::before {
-  content: '';
-  position: absolute;
-  top: 100%; /* Position it at the bottom of the chat message */
-  left: 20px;
-  border-style: solid;
-  border-left: 5px solid transparent; /* Size of the triangle */
-  border-right: 5px solid transparent; /* Size of the triangle */
-  border-top: 8px solid #FFF; /* Color and size of the triangle */
-}
-/* :root {
-  --foreground-rgb: 250, 232, 255;
-  --background-start-rgb: 250, 232, 255;
-  --background-end-rgb: 247, 219, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 250, 232, 255;
-    --background-start-rgb: 250, 232, 255;
-    --background-end-rgb: 247, 219, 255;
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */

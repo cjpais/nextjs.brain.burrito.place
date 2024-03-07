@@ -1,4 +1,4 @@
-import { Post, fetcher } from "@/app/page";
+import { Post, fetcher } from "@/app/(layout)/page";
 import ChatWindow from "@/components/chat/ChatWindow";
 import Entree from "@/components/entree/Entree";
 import EntreeEditor from "@/components/entree/EntreeEditor";

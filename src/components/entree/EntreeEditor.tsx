@@ -1,6 +1,6 @@
 "use client";
 
-import { Post } from "@/app/page";
+import { Post } from "@/app/(layout)/page";
 import React, { useEffect, useState } from "react";
 import JsonView from "react18-json-view";
 import "react18-json-view/src/style.css";
@@ -37,6 +37,7 @@ const EntreeEditor = ({ post }: { post: Post }) => {
       editable={true}
       onDelete={(e) => save(e.src)}
       onEdit={(e) => save(e.src)}
+      onAdd={(e) => save(e.src)}
     />
   );
 };

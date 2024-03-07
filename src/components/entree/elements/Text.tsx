@@ -1,4 +1,4 @@
-import { Post } from "@/app/page";
+import { Post } from "@/app/(layout)/page";
 import React from "react";
 import Markdown from "react-markdown";
 

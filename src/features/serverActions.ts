@@ -2,6 +2,8 @@
 
 import { Operation } from "fast-json-patch";
 import { revalidatePath } from "next/cache";
+import { burrito } from "./burrito";
+import { BurritoModels } from "@burrito-place/api";
 
 export const deleteEntree = async (hash: string, password: string) => {
   const result = await fetch(`${process.env.NEXT_PUBLIC_BRAIN_URL}/delete`, {
@@ -46,6 +48,32 @@ export const editEntree = async ({
   return result;
 };
 
+export const installTransform = async ({
+  password,
+  model,
+  prompt,
+  systemPrompt,
+  mode,
+}: {
+  password: string;
+  model: BurritoModels;
+  prompt: string;
+  systemPrompt: string;
+  mode: "each";
+}) => {
+  // verify password matches env otherwise return null
+  if (password !== process.env.BRAIN_AUTH_TOKEN) return null;
+
+  const result = burrito.install({
+    model,
+    prompt,
+    systemPrompt,
+    mode,
+  });
+
+  return result;
+};
+
 export const transformEntree = async ({
   systemPrompt = "You are a helpful assistant.",
   prompt,
@@ -61,7 +89,6 @@ export const transformEntree = async ({
   model?: string;
   mode?: "each" | "all";
 }) => {
-  console.log("transforming", prompt, systemPrompt, hashes, password, model);
   const result = await fetch(`${process.env.NEXT_PUBLIC_BRAIN_URL}/transform`, {
     method: "POST",
     headers: {

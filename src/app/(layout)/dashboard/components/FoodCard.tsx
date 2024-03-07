@@ -32,12 +32,16 @@ type FoodData = {
 };
 
 const fetchFood = async () => {
-  const last7DaysQuery = await burrito.queryData<{ hash: string }[]>({
-    query: "get me the last 7 days of hashes, include full days",
-    schema: [{ hash: "string. the hash of the data" }],
-  });
+  const last7DaysQuery = await burrito.queryData<{ hash: string }[] | string[]>(
+    {
+      query: "get me the last 7 days of hashes, include full days",
+      schema: [{ hash: "string. the hash of the data" }],
+    }
+  );
 
-  const last7DaysHashes = last7DaysQuery.map((d) => d.hash);
+  console.log("last7DaysQuery", last7DaysQuery);
+
+  const last7DaysHashes = last7DaysQuery.map((d) => d.hash || d);
 
   const foodTransform = await burrito.transform<{
     mealRelated: boolean;
@@ -57,7 +61,6 @@ fill in the following json if so. otherwise null
       "you are a helpful assistant. a person is going to ask you a question about some data. respond to their question using the data. respond only in JSON.",
     save: {
       app: "food-tracker",
-      key: "food-tracker",
     },
     // force: true,
     debug: true,
@@ -148,8 +151,15 @@ fill in the following json if so. otherwise null
 };
 
 const FoodCard = async () => {
+  return (
+    <Card>
+      <FoodContent />
+    </Card>
+  );
+};
+
+export const FoodContent = async () => {
   const food = await fetchFood();
-  // console.log(JSON.stringify(food, null, 2));
 
   const mealCounts = food.reduce(
     (acc, current) => {
@@ -171,98 +181,57 @@ const FoodCard = async () => {
     },
     { home: 0, out: 0, skipped: 0, friends: 0, total: 0 }
   );
-
   return (
-    <Card>
-      <div className="flex flex-col gap-4">
-        {/* <div> */}
-        {/* <div className="flex justify-between"> */}
-        {/* <h2 className="text-lg font-bold">
-              {(
-                ((mealCounts.home + mealCounts.friends) / mealCounts.total) *
-                100
-              ).toFixed()}
-              %
-            </h2> */}
-        {/* <div className="flex flex-col text-xs text-end">
-            <div className="flex justify-between w-14">
-              <p>home:</p>
-              <p>{mealCounts.homeMeals}</p>
-            </div>
-            <div className="flex">
-              <p>out:</p>
-              <p>{mealCounts.outMeals}</p>
-            </div>
-          </div> */}
-        {/* </div> */}
-        {/* </div> */}
-        <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <h1 className="text-xl font-bold b">Food Tracker</h1>
-            <div className="flex gap-10 pr-1 justify-end font-bold">
-              <p>🍳</p>
-              <p>🥪</p>
-              <p>🍽️</p>
-            </div>
-          </div>
-          <Separator type="horizontal" />
-          {food.map((f, i) => (
-            <React.Fragment key={i}>
-              <FoodRow data={f} />
-              <Separator type="horizontal" />
-            </React.Fragment>
-          ))}
-        </div>
-        {/* <div className="flex flex-col gap-2"> */}
-        {/* <div className="flex text-xs justify-between"> */}
-        <div className="grid grid-cols-12 text-xs items-center w-full">
-          <h2 className="font-bold col-span-2">meals</h2>
-          <div className="col-span-10 grid grid-cols-4 justify-items-center">
-            <p className="text-fuchsia-800 font-bold">w/ friends</p>
-            <p className="text-green-800 font-bold">@ home</p>
-            <p className="text-blue-800 font-bold">eaten out</p>
-            <p className="text-neutral-500 font-bold">skipped</p>
-          </div>
-
-          <h2 className="col-span-2 font-bold">count</h2>
-          <div className="col-span-10 grid grid-cols-4 justify-items-center">
-            <p className="text-fuchsia-800">{mealCounts.friends}</p>
-            <p className="text-green-800">{mealCounts.home}</p>
-            <p className="text-blue-800">{mealCounts.out}</p>
-            <p className="text-neutral-500">{mealCounts.skipped}</p>
-          </div>
-
-          <h2 className="col-span-2 font-bold">perc</h2>
-          <div className="col-span-10 grid grid-cols-4 justify-items-center">
-            <p className="text-fuchsia-800">
-              {((mealCounts.friends / mealCounts.total) * 100).toFixed()}%
-            </p>
-            <p className="text-green-800">
-              {((mealCounts.home / mealCounts.total) * 100).toFixed()}%
-            </p>
-            <p className="text-blue-800">
-              {((mealCounts.out / mealCounts.total) * 100).toFixed()}%
-            </p>
-            <p className="text-neutral-500">
-              {/* {((mealCounts.skipped / mealCounts.total) * 100).toFixed()}% */}
-              -
-            </p>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold b">Food Tracker</h1>
+          <div className="flex gap-10 pr-1 justify-end font-bold">
+            <p>🍳</p>
+            <p>🥪</p>
+            <p>🍽️</p>
           </div>
         </div>
-        {/* <div className="grid grid-cols-5 text-xs items-center w-full"> */}
-        {/* <h2>
-          @ home percent:{" "}
-          {(
-            ((mealCounts.home + mealCounts.friends) / mealCounts.total) *
-            100
-          ).toFixed()}
-          %
-        </h2> */}
-        {/* </div> */}
-        {/* </div> */}
-        {/* </div> */}
+        <Separator type="horizontal" />
+        {food.map((f, i) => (
+          <React.Fragment key={i}>
+            <FoodRow data={f} />
+            <Separator type="horizontal" />
+          </React.Fragment>
+        ))}
       </div>
-    </Card>
+      <div className="grid grid-cols-12 text-xs items-center min-[300px]:w-full">
+        <h2 className="font-bold col-span-2">meals</h2>
+        <div className="col-span-10 grid grid-cols-4 justify-items-center">
+          <p className="text-fuchsia-800 font-bold">w/ friends</p>
+          <p className="text-green-800 font-bold">@ home</p>
+          <p className="text-blue-800 font-bold">eaten out</p>
+          <p className="text-neutral-500 font-bold">skipped</p>
+        </div>
+
+        <h2 className="col-span-2 font-bold">count</h2>
+        <div className="col-span-10 grid grid-cols-4 justify-items-center">
+          <p className="text-fuchsia-800">{mealCounts.friends}</p>
+          <p className="text-green-800">{mealCounts.home}</p>
+          <p className="text-blue-800">{mealCounts.out}</p>
+          <p className="text-neutral-500">{mealCounts.skipped}</p>
+        </div>
+
+        <h2 className="col-span-2 font-bold">perc</h2>
+        <div className="col-span-10 grid grid-cols-4 justify-items-center">
+          <p className="text-fuchsia-800">
+            {((mealCounts.friends / mealCounts.total) * 100).toFixed()}%
+          </p>
+          <p className="text-green-800">
+            {((mealCounts.home / mealCounts.total) * 100).toFixed()}%
+          </p>
+          <p className="text-blue-800">
+            {((mealCounts.out / mealCounts.total) * 100).toFixed()}%
+          </p>
+          <p className="text-neutral-500">-</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -294,7 +263,7 @@ const FoodRow = ({ data }: { data: FoodData }) => {
             {month} {dayOfMonth}
           </p>
         </div>
-        <div className="flex flex-col w-full font-mono text-[.5rem]">
+        <div className=" flex-col w-full font-mono text-[.5rem] min-[400px]:flex hidden">
           <p className="line-clamp-1">b: {data.meals.breakfast.food}</p>
           <p className="line-clamp-1">l: {data.meals.lunch.food}</p>
           <p className="line-clamp-1">d: {data.meals.dinner.food}</p>

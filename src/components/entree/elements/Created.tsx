@@ -1,4 +1,4 @@
-import { Post } from "@/app/page";
+import { Post } from "@/app/(layout)/page";
 import { getEmojiForType } from "@/features/entreeTypes";
 import dayjs from "dayjs";
 import React from "react";

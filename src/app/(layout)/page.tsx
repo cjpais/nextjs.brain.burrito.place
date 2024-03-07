@@ -70,10 +70,15 @@ const fetchSimilar = async (query: string) => {
       },
       body: JSON.stringify({
         queries: [query],
-        num: 50,
+        num: 10,
       }),
     }
-  ).then((res) => res.json());
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error("Network response was not ok");
+      return res.json();
+    })
+    .catch((e) => console.log(e));
 
   return res as Post[];
 };
@@ -109,9 +114,6 @@ const Home = async ({
           <React.Fragment key={i}>
             <Entree key={`entree-${i}`} post={post} includeDelete={true} />
             <EntreeTransformation key={`transform-${i}`} hash={post.hash} />
-            {/* <div>
-              <h1>Transformation</h1>
-            </div> */}
           </React.Fragment>
         ))}
         {/* {posts.map((post, i) => ( */}

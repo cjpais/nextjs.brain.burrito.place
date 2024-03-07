@@ -1,5 +1,5 @@
 "use client";
-import { SendMessageFunction } from "@/app/hash/[hash]/page";
+import { SendMessageFunction } from "@/app/(layout)/hash/[hash]/page";
 import { transformEntree } from "@/features/serverActions";
 import { useChat } from "@/features/useChat";
 import { useLogin } from "@/features/useLogin";
