@@ -27,7 +27,7 @@ const People = async () => {
 
   return (
     <div className="flex flex-col min-w-96 gap-4">
-      <div className="font-mono">
+      <div className="">
         <p>Question: {question}</p>
         <p>Response Schema: {JSON.stringify(responseSchema)}</p>
       </div>

@@ -23,7 +23,7 @@ const DeleteButton = ({ hash }: { hash: string }) => {
   return (
     <button
       onClick={handleDelete}
-      className="font-mono rounded-lg py-[2px] w-6 text-xs border text-red-700 border-red-700 hover:bg-red-300"
+      className="rounded-lg py-[2px] w-6 text-xs border text-red-700 border-red-700 hover:bg-red-300"
     >
       x
     </button>

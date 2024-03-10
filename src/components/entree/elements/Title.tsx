@@ -5,7 +5,7 @@ const Title = ({ post }: { post: Post }) => {
   return (
     <a
       href={`/hash/${post.hash}`}
-      className="text-lg underline text-fuchsia-800"
+      className="font-bold text-2xl hover:underline"
     >
       {post.title?.replaceAll('"', "")}
     </a>

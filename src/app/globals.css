@@ -5,76 +5,80 @@
 :root {
   --fuchsia-50: #d1fcff;
   --fuchsia-100: #059e5e40;
-  --fuchsia-200: #f5d0fe;
-  --fuchsia-300: #059e5e;
+  --fuchsia-200: #3db885;
+  --fuchsia-300: #3db885;
   --fuchsia-300-t: #059e5e40;
-  --fuchsia-400: #e879f9;
+  --fuchsia-400: #059e5e;
   --fuchsia-500: #077e4c;
   --fuchsia-600: #077e4c;
   --fuchsia-700: #077e4c;
-  --fuchsia-800: #077e4c;
+  --fuchsia-800: #056c41;
   --fuchsia-900: #077e4c;
 
   --background: var(--fuchsia-50); 
-  --foreground: var(--fuchsia-900);
-
-  --card: var(--fuchsia-50);
-  --card-foreground: var(--fuchsia-900);
-
+  --sep: #059e5e20;
   --popover: var(--fuchsia-50);
-  --popover-foreground: var(--fuchsia-900);
-
-  --primary: var(--fuchsia-600);
-  --primary-foreground: #ffffff; /* White */
-
-  --secondary: var(--fuchsia-200);
-  --secondary-foreground: var(--fuchsia-900);
-
-  --muted: var(--fuchsia-200);
-  --muted-foreground: var(--fuchsia-700);
-
   --accent: var(--fuchsia-100);
-  --accent-foreground: var(--fuchsia-900);
-
+  --muted: var(--fuchsia-200);
+  --secondary: var(--fuchsia-200);
+  --primary: var(--fuchsia-600);
+  --dark: var(--fuchsia-800);
   --destructive: var(--fuchsia-600);
-  --destructive-foreground: #ffffff; /* White */
+  --foreground: var(--fuchsia-900);
 
   --border: var(--fuchsia-300-t);
   --input: var(--fuchsia-700);
   --ring: var(--fuchsia-900);
 
+  --card: var(--fuchsia-50);
+
+  --card-foreground: var(--fuchsia-900);
+
+  --popover-foreground: var(--fuchsia-900);
+
+  --primary-foreground: #ffffff; /* White */
+
+  --secondary-foreground: var(--fuchsia-900);
+
+  --muted-foreground: var(--fuchsia-700);
+
+  --accent-foreground: var(--fuchsia-900);
+
+  --destructive-foreground: #ffffff; /* White */
+
+
   --radius: 0.5rem;
 }
 
-.dark {
+/* .dark {
   --background: var(--fuchsia-900);
-  --foreground: #ffffff; /* White */
+  --foreground: #ffffff;
 
   --card: var(--fuchsia-900);
-  --card-foreground: #ffffff; /* White */
+  --card-foreground: #ffffff; 
 
   --popover: var(--fuchsia-900);
-  --popover-foreground: #ffffff; /* White */
+  --popover-foreground: #ffffff; 
 
-  --primary: #ffffff; /* White */
+  --primary: #ffffff; 
   --primary-foreground: var(--fuchsia-600);
 
   --secondary: var(--fuchsia-800);
-  --secondary-foreground: #ffffff; /* White */
+  --secondary-foreground: #ffffff; 
 
   --muted: var(--fuchsia-800);
   --muted-foreground: var(--fuchsia-700);
 
   --accent: var(--fuchsia-800);
-  --accent-foreground: #ffffff; /* White */
+  --accent-foreground: #ffffff; 
 
   --destructive: var(--fuchsia-600);
-  --destructive-foreground: #ffffff; /* White */
+  --destructive-foreground: #ffffff; 
 
   --border: var(--fuchsia-300-t);
   --input: var(--fuchsia-800);
   --ring: var(--fuchsia-200);
-}
+} */
 
 
  

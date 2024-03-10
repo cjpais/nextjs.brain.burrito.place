@@ -1,10 +1,4 @@
-import Entree from "@/components/entree/Entree";
-import EntreeTransformation from "@/components/entree/EntreeTransformation";
-import Filters from "@/components/Filters";
-import Search from "@/components/Search";
-import Transform from "@/components/Transform";
-import dayjs from "dayjs";
-import Image from "next/image";
+import EntreeDisplay from "@/components/entree/EntreeDisplay";
 import React from "react";
 
 // TODO make this into schema
@@ -103,24 +97,7 @@ const Home = async ({
     ? await fetchSimilar(searchParams?.keyword as string)
     : await fetcher<Post[]>(query);
 
-  return (
-    <div className="flex flex-col gap-8 w-full items-center font-mono text-sm lg:flex lg:px-24 px-8 py-8">
-      {/* <div className="max-w-3xl flex flex-col w-full items-center gap-4">
-        <Filters />
-        <Search />
-      </div> */}
-      <div className="grid grid-cols-2 max-w-6xl gap-8">
-        {posts.map((post, i) => (
-          <React.Fragment key={i}>
-            <Entree key={`entree-${i}`} post={post} includeDelete={true} />
-            <EntreeTransformation key={`transform-${i}`} hash={post.hash} />
-          </React.Fragment>
-        ))}
-        {/* {posts.map((post, i) => ( */}
-      </div>
-      <Transform hashes={posts.map((p) => p.hash)} />
-    </div>
-  );
+  return <EntreeDisplay posts={posts} />;
 };
 
 export default Home;

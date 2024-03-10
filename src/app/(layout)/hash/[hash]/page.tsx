@@ -21,7 +21,7 @@ const HashPage = async ({ params }: { params: { hash: string } }) => {
   const post = (await getMetadata(params.hash)) as Post;
 
   return (
-    <div className="flex font-mono text-sm lg:px-24 px-8 py-8 gap-12 h-full">
+    <div className="flex text-sm lg:px-24 px-8 py-8 gap-12 h-full">
       <div className="w-1/2">
         <Entree post={post} display="full" />
         <EntreeEditor post={post} />

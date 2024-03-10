@@ -5,7 +5,7 @@ const Description = ({ post }: { post: Post }) => {
   if (!post.description) return null;
 
   return (
-    <div className="text-neutral-950 text-xs">
+    <div className="text-xs">
       <b className="mr-1">Description:</b>
       <i>{post.description}</i>
     </div>

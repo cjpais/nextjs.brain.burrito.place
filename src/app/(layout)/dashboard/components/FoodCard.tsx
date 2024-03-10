@@ -263,7 +263,7 @@ const FoodRow = ({ data }: { data: FoodData }) => {
             {month} {dayOfMonth}
           </p>
         </div>
-        <div className=" flex-col w-full font-mono text-[.5rem] min-[400px]:flex hidden">
+        <div className=" flex-col w-full text-[.5rem] min-[400px]:flex hidden">
           <p className="line-clamp-1">b: {data.meals.breakfast.food}</p>
           <p className="line-clamp-1">l: {data.meals.lunch.food}</p>
           <p className="line-clamp-1">d: {data.meals.dinner.food}</p>

@@ -229,20 +229,20 @@ const Transform = ({ hashes }: { hashes: string[] }) => {
         </div>
         <div className="grid grid-cols-6 gap-4">
           <button
-            className="font-mono rounded-lg py-2 px-4 border-2 text-fuchsia-700 border-fuchsia-700 hover:bg-fuchsia-300 col-span-2"
+            className="rounded-lg py-2 px-4 border-2 text-fuchsia-700 border-fuchsia-700 hover:bg-fuchsia-300 col-span-2"
             onClick={transform}
           >
             transform
           </button>
           <button
-            className="font-mono rounded-lg py-2 px-4 border-2 text-green-700 border-green-700 hover:bg-green-300 col-span-2"
+            className="rounded-lg py-2 px-4 border-2 text-green-700 border-green-700 hover:bg-green-300 col-span-2"
             onClick={install}
             disabled={mode !== "each"}
           >
             install transform
           </button>
           <button
-            className="font-mono rounded-lg py-2 px-4 border-2 text-green-700 border-green-700 hover:bg-green-300 col-span-2"
+            className="rounded-lg py-2 px-4 border-2 text-green-700 border-green-700 hover:bg-green-300 col-span-2"
             onClick={saveTransform}
           >
             dl transform

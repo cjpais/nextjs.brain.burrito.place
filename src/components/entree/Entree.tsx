@@ -13,49 +13,48 @@ import Transcript from "./elements/Transcript";
 import Description from "./elements/Description";
 import Text from "./elements/Text"; // Add this line
 import Caption from "./elements/Caption";
+import { Separator } from "../ui/separator";
 
 type EntreeDisplay = "tiny" | "medium" | "full";
 
 const Entree = ({
   post,
   display = "medium",
-  includeDelete = false,
 }: {
   post: Post;
   display?: EntreeDisplay;
   includeDelete?: boolean;
 }) => {
   return (
-    <div className="flex items-start w-full max-h-full overflow-auto">
-      {/* TODO this is meant to be a sidebar */}
-      {includeDelete && (
-        <div className="flex flex-col gap-2 w-12 pt-[6px]">
-          <DeleteButton hash={post.hash} />
-        </div>
-      )}
+    <div className="flex flex-col gap-3 w-full">
+      <div className="flex flex-col gap-2">
+        <Title post={post} />
 
-      <div className="flex flex-col gap-4 w-full">
-        <div className="flex flex-col gap-2">
-          <Title post={post} />
-
-          <div className="flex justify-between">
-            <Location post={post} />
-            <Created post={post} />
-          </div>
+        <div className="grid grid-cols-3 font-medium">
+          <Created post={post} />
+          <Location post={post} />
         </div>
 
+        <Separator className="bg-sep" />
+      </div>
+
+      <div className="flex flex-col gap-2 text-dark">
         <Summary post={post} />
         <Caption post={post} />
+        <Description post={post} />
         {display === "full" && (
           <>
-            <Description post={post} />
             <Transcript post={post} />
             <Text post={post} />
           </>
         )}
-        <Image post={post} />
-        <Video post={post} />
       </div>
+
+      <Separator className="bg-sep" />
+
+      <Image post={post} />
+      <Video post={post} />
+      <Separator className="mt-6" />
     </div>
   );
 };
