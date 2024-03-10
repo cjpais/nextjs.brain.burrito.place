@@ -1,6 +1,7 @@
 "use client";
 import { useLogin } from "@/features/useLogin";
 import React from "react";
+import { Button } from "./ui/button";
 
 const LoginButton = () => {
   const { password, setPassword } = useLogin();
@@ -18,12 +19,13 @@ const LoginButton = () => {
   };
 
   return (
-    <button
+    <Button
       onClick={handleLogin}
-      className="font-mono rounded-lg py-2 px-4 border-2 text-fuchsia-700 border-fuchsia-700 hover:bg-fuchsia-300"
+      className=""
+      // font-mono rounded-lg py-2 px-4 border-2 text-fuchsia-700 border-fuchsia-700 hover:bg-fuchsia-300
     >
       {isLoggedIn ? "logout" : "login"}
-    </button>
+    </Button>
   );
 };
 

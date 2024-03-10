@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Input } from "./ui/input";
 
 const Search = () => {
   const router = useRouter();
@@ -17,11 +18,15 @@ const Search = () => {
   };
 
   return (
-    <div className="flex gap-4 border-2 border-fuchsia-700 w-3/4 bg-transparent rounded-lg hover:bg-fuchsia-200 items-center pr-2">
-      <input
+    <div
+      className={`flex gap-4 border-2 ${
+        isFocused ? "bg-accent" : "bg-transparent"
+      } rounded-lg items-center pr-2 hover:bg-accent`}
+    >
+      <Input
         type="text"
         placeholder="Search"
-        className=" placeholder-fuchsia-950 bg-transparent outline-none p-2 transition-colors duration-100 ease-in-out w-full"
+        className="w-full border-none bg-transparent focus-visible:bg-transparent"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -31,8 +36,8 @@ const Search = () => {
       />
       <select
         value={mode}
-        onChange={(e) => setMode(e.target.value)}
-        className=" text-fuchsia-900 bg-transparent hover:bg-fuchsia-200 transition-colors duration-100 ease-in-out outline-none"
+        onChange={(e) => setMode(e.target.value as "keyword" | "data")}
+        className=" bg-transparent transition-colors duration-100 ease-in-out outline-none"
       >
         <option value="keyword">keyword</option>
         <option value="data">data</option>

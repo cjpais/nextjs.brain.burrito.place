@@ -3,16 +3,17 @@
 @tailwind utilities;
  
 :root {
-  --fuchsia-50: #fdf4ff;
-  --fuchsia-100: #fae8ff;
+  --fuchsia-50: #d1fcff;
+  --fuchsia-100: #059e5e40;
   --fuchsia-200: #f5d0fe;
-  --fuchsia-300: #f0abfc;
+  --fuchsia-300: #059e5e;
+  --fuchsia-300-t: #059e5e40;
   --fuchsia-400: #e879f9;
-  --fuchsia-500: #d946ef;
-  --fuchsia-600: #c026d3;
-  --fuchsia-700: #a21caf;
-  --fuchsia-800: #86198f;
-  --fuchsia-900: #701a75;
+  --fuchsia-500: #077e4c;
+  --fuchsia-600: #077e4c;
+  --fuchsia-700: #077e4c;
+  --fuchsia-800: #077e4c;
+  --fuchsia-900: #077e4c;
 
   --background: var(--fuchsia-50); 
   --foreground: var(--fuchsia-900);
@@ -38,7 +39,7 @@
   --destructive: var(--fuchsia-600);
   --destructive-foreground: #ffffff; /* White */
 
-  --border: var(--fuchsia-800);
+  --border: var(--fuchsia-300-t);
   --input: var(--fuchsia-700);
   --ring: var(--fuchsia-900);
 
@@ -70,7 +71,7 @@
   --destructive: var(--fuchsia-600);
   --destructive-foreground: #ffffff; /* White */
 
-  --border: var(--fuchsia-800);
+  --border: var(--fuchsia-300-t);
   --input: var(--fuchsia-800);
   --ring: var(--fuchsia-200);
 }
